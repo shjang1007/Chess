@@ -57,9 +57,7 @@ class Board
         pos = [row, col]
         case row
         when 1
-          # CHANGE BACK LATER
-          # self[pos] = Pawn.new(pos, self, :black)
-          self[pos] = Piece.new(self, [row, col])
+          self[pos] = Pawn.new(pos, self, :black)
         when 6
           self[pos] = Pawn.new(pos, self, :white)
         when 2, 3, 4, 5
@@ -83,4 +81,4 @@ end
 
 # a = Board.new
 # a.display_board
-# p a[[0, 4]].moves
+# p a[[0, 3]].moves

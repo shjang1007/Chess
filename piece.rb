@@ -2,17 +2,11 @@ module SteppingPiece
   def moves
     moves = []
     move_dirs.each do |possible_move|
-      new_pos = pos
-      until stop?(new_pos)
-        new_pos = grow_unblocked_moves_in_dir(new_pos, possible_move)
+        new_pos = grow_unblocked_moves_in_dir(pos, possible_move)
         # Stops when the pos is out of grid
         # Stops when the pos is blocked
-        break if stop?(new_pos)
+        next if stop?(new_pos)
         moves << new_pos
-
-        # Stops when the pos is after the different color piece
-        break if different_color_piece?(new_pos)
-      end
     end
 
     moves
