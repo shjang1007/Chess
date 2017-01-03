@@ -21,8 +21,9 @@ class Board
   end
 
   def display_board
-    grid.each do |row|
-      puts row.join(" ")
+    puts "  #{(0..7).to_a.join(" ")}"
+    grid.each_with_index do |row, i|
+      puts "#{i} #{row.join(" ")}"
     end
   end
 
@@ -41,7 +42,8 @@ class Board
     raise "There is no piece to move from." if self[start_pos].nil?
     # raise "Invalid move." if self[start_pos].valid_move?(start_pos, end_pos)
     self[end_pos] = self[start_pos]
-    self[start_pos] = nil
+    self[end_pos].pos = end_pos
+    self[start_pos] = Piece.new(self, start_pos)
   end
 
   def place_pieces
@@ -55,11 +57,13 @@ class Board
         pos = [row, col]
         case row
         when 1
-          self[pos] = Pawn.new(pos, self, :black)
+          # CHANGE BACK LATER
+          # self[pos] = Pawn.new(pos, self, :black)
+          self[pos] = Piece.new(self, [row, col])
         when 6
           self[pos] = Pawn.new(pos, self, :white)
         when 2, 3, 4, 5
-          Piece.new(self, [row, col])
+          self[pos] = Piece.new(self, [row, col])
         end
       end
     end
@@ -77,5 +81,6 @@ class Board
   end
 end
 
-a = Board.new
-p a[[0, 0]].moves
+# a = Board.new
+# a.display_board
+# p a[[0, 4]].moves
