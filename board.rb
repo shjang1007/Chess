@@ -44,7 +44,7 @@ class Board
 
     self[end_pos] = self[start_pos]
     self[end_pos].pos = end_pos
-    self[start_pos] = Piece.new(self, start_pos)
+    self[start_pos] = NullPiece.instance
   end
 
   def place_pieces
@@ -58,9 +58,9 @@ class Board
         pos = [row, col]
         case row
         when 1
-          self[pos] = Pawn.new(pos, self, :black)
+          self[pos] = Pawn.new(self, pos, :black)
         when 6
-          self[pos] = Pawn.new(pos, self, :white)
+          self[pos] = Pawn.new(self, pos, :white)
         when 2, 3, 4, 5
           self[pos] = NullPiece.instance
         end
@@ -69,13 +69,21 @@ class Board
   end
 
   def non_pawn_pieces(row, color)
-    [ Rook.new(self, [row, 0], color),
+    [Rook.new(self, [row, 0], color),
       Knight.new(self, [row, 1], color),
       Bishop.new(self, [row, 2], color),
       King.new(self, [row, 3], color),
       Queen.new(self, [row, 4], color),
       Bishop.new(self, [row, 5], color),
       Knight.new(self, [row, 6], color),
-      Rook.new(self, [row, 7], color) ]
+      Rook.new(self, [row, 7], color)]
   end
 end
+
+# a = Board.new
+# start_pos = [1, 3]
+# end_pos = [3, 3]
+# a.move_piece(start_pos, end_pos)
+# a.move_piece([6, 2], [4, 2])
+# a.display_board
+# p a[end_pos].moves
