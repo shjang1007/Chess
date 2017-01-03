@@ -10,7 +10,13 @@ class Piece
   end
 
   def to_s
-    "_"
+    if color == :white
+      "#{self.class}"[0].colorize(:yellow)
+    elsif color == :black
+      "#{self.class}"[0]
+    else
+      "-"
+    end
   end
 
   private

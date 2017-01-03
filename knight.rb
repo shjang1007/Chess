@@ -7,6 +7,10 @@ class Knight < Piece
   end
 
   def to_s
-    "N"
+    if color == :white
+      "N".colorize(:yellow)
+    else
+      "N"
+    end
   end
 end

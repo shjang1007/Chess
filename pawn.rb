@@ -47,8 +47,4 @@ class Pawn < Piece
 
     directions
   end
-
-  def to_s
-    "P"
-  end
 end

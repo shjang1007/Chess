@@ -20,10 +20,10 @@ class Display
       display_board
       input = cursor.get_input
 
-      if input == cursor.cursor_pos
-        p input
-        break
-      end
+      # if input == cursor.cursor_pos
+      #   p input
+      #   break
+      # end
     end
   end
 
@@ -34,16 +34,17 @@ class Display
       render_row = "#{row_i}|"
       row.each_with_index do |square, col_i|
         if [row_i, col_i] == cursor.cursor_pos
-          disp_square = square.nil? ?
-            "_".colorize(:green) + " " : "#{square.to_s.colorize(:yellow)} "
+          disp_square = square.to_s.colorize(:background => :light_cyan) + " "
           render_row << disp_square
-        elsif square.nil?
-          render_row << "_ "
+        elsif square.color.nil?
+          render_row << square.to_s + " "
         else
-          render_row << "#{square.to_s} "
+          render_row << square.to_s + " "
         end
       end
       puts render_row
     end
   end
 end
+
+Display.new.render

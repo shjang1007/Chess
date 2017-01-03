@@ -6,8 +6,4 @@ class Rook < Piece
   def move_dirs
     HORIZONTAL + VERTICAL
   end
-
-  def to_s
-    "R"
-  end
 end
