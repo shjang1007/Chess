@@ -5,6 +5,10 @@ class Board
   attr_reader :grid
 
   def initialize
+    generate_board
+  end
+
+  def generate_board
     @grid = Array.new(8) { Array.new(8) }
     place_pieces
   end
@@ -13,11 +17,11 @@ class Board
     chess_piece_rows = [0, 1, 6, 7]
     chess_piece_rows.each do |row|
       grid[row].each_index do |col|
-        grid[row][col] = Piece.new([row, col], self)
+        grid[row][col] = Piece.new(self, [row, col])
       end
     end
 
-    grid[2][2] = Rook.new([2, 2], self)
+    grid[2][2] = Rook.new(self, [2, 2])
   end
 
   def [](pos)

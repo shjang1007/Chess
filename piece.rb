@@ -1,5 +1,3 @@
-# require_relative 'board'
-#
 module SlidingPiece
   def moves
     move_dirs
@@ -38,9 +36,8 @@ end
 class Piece
   attr_reader :pos, :board
 
-  def initialize(pos, board)
-    @pos = pos
-    @board = board
+  def initialize(board, pos)
+    @board, @pos = board, pos
   end
 
   def moves
