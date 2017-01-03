@@ -5,6 +5,7 @@ require_relative "knight"
 require_relative "pawn"
 require_relative "queen"
 require_relative "rook"
+require_relative "null_pieces"
 
 require "byebug"
 
@@ -38,9 +39,9 @@ class Board
   end
 
   def move_piece(start_pos, end_pos)
-    # Probably need to modify in the future
     raise "There is no piece to move from." if self[start_pos].nil?
-    # raise "Invalid move." if self[start_pos].valid_move?(start_pos, end_pos)
+    raise "Invalid move." unless self[start_pos].moves.include?(end_pos)
+
     self[end_pos] = self[start_pos]
     self[end_pos].pos = end_pos
     self[start_pos] = Piece.new(self, start_pos)
@@ -61,7 +62,7 @@ class Board
         when 6
           self[pos] = Pawn.new(pos, self, :white)
         when 2, 3, 4, 5
-          self[pos] = Piece.new(self, [row, col])
+          self[pos] = NullPiece.instance
         end
       end
     end
@@ -78,7 +79,3 @@ class Board
       Rook.new(self, [row, 7], color) ]
   end
 end
-
-# a = Board.new
-# a.display_board
-# p a[[0, 3]].moves
