@@ -10,7 +10,7 @@ require_relative "null_pieces"
 require "byebug"
 
 class Board
-  attr_reader :grid
+  attr_accessor :grid
 
   def initialize
     generate_board
@@ -28,6 +28,35 @@ class Board
     end
   end
 
+  def checkmate?(color)
+    in_check?(color) &&
+      same_color_pieces(color).all? { |piece| piece.valid_moves.empty? }
+  end
+
+  def in_check?(color)
+    king_pos = find_king_position(color)
+    diff_color_pieces(color).any? do |piece|
+      piece.moves.include?(king_pos)
+    end
+  end
+
+  def find_king_position(color)
+    (0..7).each do |row|
+      (0..7).each do |col|
+        pos = [row, col]
+        return pos if self[pos].is_a?(King) && self[pos].color == color
+      end
+    end
+  end
+
+  def diff_color_pieces(color)
+    grid.flatten.select { |piece| piece.color != color && !piece.color.nil? }
+  end
+
+  def same_color_pieces(color)
+    grid.flatten.select { |piece| piece.color == color }
+  end
+
   def [](pos)
     row, col = pos
     grid[row][col]
@@ -38,8 +67,25 @@ class Board
     grid[row][col] = piece
   end
 
+  def deep_dup
+    dup_board = self.dup
+    dup_board.grid = Array.new(8) { Array.new(8) }
+    grid.each_with_index do |row, row_i|
+      row.each_with_index do |square, col_i|
+        pos = [row_i, col_i]
+        if square.is_a?(NullPiece)
+          dup_board[pos] = NullPiece.instance
+        else
+          dup_board[pos] = square.class.new(dup_board, pos, square.color)
+        end
+      end
+    end
+
+    dup_board
+  end
+
   def move_piece(start_pos, end_pos)
-    raise "There is no piece to move from." if self[start_pos].nil?
+    raise "There is no piece to move from." if self[start_pos].is_a?(NullPiece)
     raise "Invalid move." unless self[start_pos].moves.include?(end_pos)
 
     self[end_pos] = self[start_pos]
@@ -72,18 +118,23 @@ class Board
     [Rook.new(self, [row, 0], color),
       Knight.new(self, [row, 1], color),
       Bishop.new(self, [row, 2], color),
-      King.new(self, [row, 3], color),
       Queen.new(self, [row, 4], color),
+      King.new(self, [row, 3], color),
       Bishop.new(self, [row, 5], color),
       Knight.new(self, [row, 6], color),
       Rook.new(self, [row, 7], color)]
   end
 end
 
-# a = Board.new
-# start_pos = [1, 3]
-# end_pos = [3, 3]
-# a.move_piece(start_pos, end_pos)
-# a.move_piece([6, 2], [4, 2])
-# a.display_board
-# p a[end_pos].moves
+a = Board.new
+a.display_board
+a.move_piece([6, 5], [5, 5])
+a.move_piece([1, 4], [2, 4])
+a.move_piece([6, 6], [4, 6])
+a.display_board
+p a[[0, 4]].moves
+p a[[0, 3]].moves
+# a.move_piece([0, 3], [4, 7])
+a.display_board
+# p a.in_check?(:black)
+p a.checkmate?(:black)

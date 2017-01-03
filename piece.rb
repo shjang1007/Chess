@@ -1,3 +1,5 @@
+require 'colorize'
+
 class Piece
   attr_reader :board, :color
   attr_accessor :pos
@@ -7,6 +9,10 @@ class Piece
   end
 
   def moves
+  end
+
+  def valid_moves
+    moves.reject! { |move| move_into_check(move) }
   end
 
   def to_s
@@ -22,6 +28,10 @@ class Piece
   private
 
   def move_into_check(to_pos)
+    dup_board = board.deep_dup
+
+    dup_board.move_piece(pos, to_pos)
+    dup_board.in_check?(color)
   end
 end
 
@@ -50,7 +60,7 @@ module SlidingPiece
   end
 
   def different_color_piece?(pos)
-    return false if pos.nil?
+    return false if pos.is_a?(NullPiece)
 
     last_move_color = board[pos].color
 
