@@ -1,12 +1,10 @@
 module SlidingPiece
   def moves
-    move_dirs
-
     moves = []
     move_dirs.each do |possible_move|
+      new_pos = pos
       while true
-        # everytime it resets pos, so it runs infinitely
-        new_pos = [pos, possible_move].transpose.map { |el| el.reduce(:+) }
+        new_pos = [new_pos, possible_move].transpose.map { |el| el.reduce(:+) }
         break unless valid_move?(new_pos)
         moves << new_pos
       end
@@ -17,14 +15,8 @@ module SlidingPiece
 
   def valid_move?(pos)
     row, col = pos
-    (row.between?(0, 7) && col.between?(0, 7)) && board[pos].nil?
+    (row.between?(0, 7) && col.between?(0, 7)) #&& board[pos].nil?
   end
-  #
-  # def horizontal_dirs()
-  # end
-  #
-  # def diagonal_dirs()
-  # end
 
   def grow_unblocked_moves_in_dir(dx, dy)
   end
@@ -34,10 +26,10 @@ end
 # end
 
 class Piece
-  attr_reader :pos, :board
+  attr_reader :board, :pos, :color
 
-  def initialize(board, pos)
-    @board, @pos = board, pos
+  def initialize(board, pos, color = nil)
+    @board, @pos, @color = board, pos, color
   end
 
   def moves
@@ -50,7 +42,7 @@ class Piece
   end
 
   def to_s
-    "P"
+    "_"
   end
 
   private
