@@ -14,6 +14,6 @@ class NullPiece < Piece
   end
 
   def to_s
-    "-"
+    " "
   end
 end

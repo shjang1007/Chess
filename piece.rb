@@ -20,8 +20,6 @@ class Piece
       "#{self.class}"[0].colorize(:yellow)
     elsif color == :black
       "#{self.class}"[0]
-    else
-      "-"
     end
   end
 

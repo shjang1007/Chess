@@ -22,6 +22,7 @@ class Pawn < Piece
     [new_pos, possible_move].transpose.map { |el| el.reduce(:+) }
   end
 
+  ########################## REFACTOR #################################
   def move_dirs
     row, col = pos
     directions = []

@@ -7,8 +7,6 @@ require_relative "queen"
 require_relative "rook"
 require_relative "null_pieces"
 
-require "byebug"
-
 class Board
   attr_accessor :grid
 
@@ -89,8 +87,7 @@ class Board
     piece_selected = self[start_pos]
     raise "Empty square selected" if piece_selected.is_a?(NullPiece)
     unless piece_selected.valid_moves.include?(end_pos)
-      raise "That move will leave you in check"
-        if in_check?(piece_selected.color)
+      raise "That move will leave you in check" if in_check?(piece_selected.color)
       raise "Invalid move."
     end
 
