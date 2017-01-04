@@ -30,7 +30,7 @@ class Board
 
   def checkmate?(color)
     in_check?(color) &&
-      same_color_pieces(color).all? { |piece| piece.valid_moves.empty? }
+    same_color_pieces(color).all? { |piece| piece.valid_moves.empty?}
   end
 
   def in_check?(color)
@@ -118,23 +118,21 @@ class Board
     [Rook.new(self, [row, 0], color),
       Knight.new(self, [row, 1], color),
       Bishop.new(self, [row, 2], color),
-      Queen.new(self, [row, 4], color),
-      King.new(self, [row, 3], color),
+      Queen.new(self, [row, 3], color),
+      King.new(self, [row, 4], color),
       Bishop.new(self, [row, 5], color),
       Knight.new(self, [row, 6], color),
       Rook.new(self, [row, 7], color)]
   end
 end
 
-a = Board.new
-a.display_board
-a.move_piece([6, 5], [5, 5])
-a.move_piece([1, 4], [2, 4])
-a.move_piece([6, 6], [4, 6])
-a.display_board
-p a[[0, 4]].moves
-p a[[0, 3]].moves
+# a = Board.new
+# a.move_piece([6, 5], [5, 5])
+# a.move_piece([1, 4], [2, 4])
+# a.move_piece([6, 6], [4, 6])
 # a.move_piece([0, 3], [4, 7])
-a.display_board
-# p a.in_check?(:black)
-p a.checkmate?(:black)
+# a.display_board
+# # p a[[7, 7]].valid_moves
+#
+# p a.in_check?(:white)
+# p a.checkmate?(:white)
