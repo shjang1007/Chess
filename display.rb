@@ -13,11 +13,8 @@ class Display
   end
 
   def render
-    while true
       system("clear")
       display_board
-      input = cursor.get_input
-    end
   end
 
   def display_board
@@ -41,5 +38,3 @@ class Display
     puts "  #{ROWS.join(" ")}"
   end
 end
-
-Display.new.render

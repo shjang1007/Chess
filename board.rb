@@ -83,37 +83,28 @@ class Board
   end
 
   ##################### REFACTOR!!! ################################
-  def move_piece(start_pos, end_pos)
+  def move_piece(color, start_pos, end_pos)
     piece_selected = self[start_pos]
-    raise "Empty square selected" if piece_selected.is_a?(NullPiece)
+    if piece_selected.is_a?(NullPiece)
+      raise "Empty square selected"
+
     unless piece_selected.valid_moves.include?(end_pos)
       raise "That move will leave you in check" if in_check?(piece_selected.color)
       raise "Invalid move."
     end
 
-    # update the board after the move
-    update_the_square(start_pos, end_pos)
-    # change the start_pos to empty space.
-    clear_space(start_pos)
-  rescue => e
-    puts e
-    # retry
+    move_piece!(start_pos, end_pos)
   end
 
   # same method as the above one, but created to avoid method collision
   def move_piece!(start_pos, end_pos)
-    update_the_square(start_pos, end_pos)
-    clear_space(start_pos)
+    update_the_board_after_move(start_pos, end_pos)
   end
 
-  def update_the_square(start_pos, end_pos)
+  def update_the_board_after_move(start_pos, end_pos)
     self[end_pos] = self[start_pos]
-
-    self[end_pos].pos = end_pos
-  end
-
-  def clear_space(pos)
     self[pos] = NullPiece.instance
+    self[end_pos].pos = end_pos
   end
 
   def place_pieces
@@ -148,14 +139,3 @@ class Board
       Rook.new(self, [row, 7], color)]
   end
 end
-
-a = Board.new
-a.move_piece([6, 5], [5, 5])
-a.move_piece([1, 4], [2, 4])
-a.move_piece([6, 6], [4, 6])
-a.move_piece([0, 3], [4, 7])
-a.display_board
-# # p a[[7, 7]].valid_moves
-#
-# p a.in_check?(:white)
-# p a.checkmate?(:white)
