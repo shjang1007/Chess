@@ -18,23 +18,28 @@ class Display
   end
 
   def display_board
-    puts "  #{ROWS.join(" ")}"
-    puts "  - - - - - - - -"
-    board.grid.each_with_index do |row, row_i|
-      render_row = "#{row_i + 1}|"
-      row.each_with_index do |square, col_i|
-        if [row_i, col_i] == cursor.cursor_pos
-          disp_square = square.to_s.colorize(:background => :light_cyan) + " "
-          render_row << disp_square
-        elsif square.color.nil?
-          render_row << square.to_s + " "
-        else
-          render_row << square.to_s + " "
-        end
+    puts "  #{ROWS.join("  ")}"
+    board.grid.each_with_index do |grid_row, row|
+      render_row = "#{row + 1}"
+      grid_row.each_with_index do |square, col|
+          render_row << square.to_s.colorize(background_color(row, col))
       end
-      puts "#{render_row}|#{row_i + 1}"
+      puts "#{render_row}#{row + 1}"
     end
-    puts "  - - - - - - - -"
-    puts "  #{ROWS.join(" ")}"
+    puts "  #{ROWS.join("  ")}"
+  end
+
+  def background_color(row, col)
+    if cursor.cursor_pos == [row, col] && cursor.selected
+      background_color = :red
+    elsif cursor.cursor_pos == [row, col]
+      background_color = :cyan
+    elsif (row + col).even?
+      background_color = :light_yellow
+    elsif (row + col).odd?
+      background_color = :light_green
+    end
+
+    { background: background_color }
   end
 end
