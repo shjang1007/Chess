@@ -17,10 +17,16 @@ class Game
 
   def play
     until game_over?
-      start_pos, end_pos = players[current_player].get_moves(board)
-      board.move_piece(start_pos, end_pos)
+      begin
+        start_pos, end_pos = players[current_player].get_moves(board)
+        board.move_piece(current_player, start_pos, end_pos)
 
-      switch_player!
+        switch_player!
+      rescue => e
+        puts e
+        sleep(1)
+        retry
+      end
     end
 
     display.render
