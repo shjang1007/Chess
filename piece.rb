@@ -1,6 +1,15 @@
 require 'colorize'
 
 class Piece
+  SYMBOLS = {
+    "King" => [" \u{2654} ", " \u{265A} "],
+    "Queen" => [" \u{2655} ", " \u{265B} "],
+    "Rook" => [" \u{2656} ", " \u{265C} "],
+    "Bishop" => [" \u{2657} ", " \u{265D} "],
+    "Knight" => [" \u{2658} ", " \u{265E} "],
+    "Pawn" => [" \u{2659} ", " \u{265F} "]
+  }
+
   attr_reader :board, :color
   attr_accessor :pos
 
@@ -17,9 +26,11 @@ class Piece
 
   def to_s
     if color == :white
-      "#{self.class}"[0].colorize(:yellow)
+      SYMBOLS[self.class.to_s][0]
     elsif color == :black
-      "#{self.class}"[0]
+      SYMBOLS[self.class.to_s][1]
+    else
+      "   "
     end
   end
 

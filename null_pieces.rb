@@ -12,8 +12,4 @@ class NullPiece < Piece
   def symbol
     :null
   end
-
-  def to_s
-    " "
-  end
 end
