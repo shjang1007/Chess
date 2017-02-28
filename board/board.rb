@@ -45,9 +45,9 @@ class Board
   def deep_dup
     dup_board = self.dup
     dup_board.grid = Array.new(8) { Array.new(8) }
-    grid.each_with_index do |row, row_i|
-      row.each_with_index do |square, col_i|
-        pos = [row_i, col_i]
+    grid.each_with_index do |grid_row, row|
+      grid_row.each_with_index do |square, col|
+        pos = [row, col]
         if square.is_a?(NullPiece)
           dup_board[pos] = NullPiece.instance
         else
