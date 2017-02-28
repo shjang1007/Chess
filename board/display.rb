@@ -47,13 +47,13 @@ class Display
 
   def background_color(row, col)
     if cursor.cursor_pos == [row, col] && cursor.selected
-      background_color = :red
+      background_color = :yellow
     elsif cursor.cursor_pos == [row, col]
-      background_color = :cyan
-    elsif (row + col).even?
       background_color = :light_yellow
+    elsif (row + col).even?
+      background_color = :light_white
     elsif (row + col).odd?
-      background_color = :light_green
+      background_color = :green
     end
 
     { background: background_color }

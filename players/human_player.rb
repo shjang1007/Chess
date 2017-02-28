@@ -1,10 +1,5 @@
-class HumanPlayer
+class HumanPlayer < Player
   attr_reader :color, :display
-
-  def initialize(color, display)
-    @color = color
-    @display = display
-  end
 
   def get_moves(board)
     start_pos, end_pos = nil, nil
