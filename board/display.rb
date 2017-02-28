@@ -3,16 +3,26 @@ require "colorize"
 class Display
   ROWS = %w(A B C D E F G H)
 
-  attr_reader :board, :cursor
+  attr_reader :board, :cursor, :notification
 
   def initialize(board)
     @board = board
     @cursor = Cursor.new([0, 0], board)
+    @notification = {}
   end
 
   def render
-      system("clear")
-      display_board
+    system("clear")
+    display_board
+    notification.each { |_, v| puts "#{v}".colorize(:red) }
+  end
+
+  def check_message
+    @notification[:check] = "CHECK!"
+  end
+
+  def delete_check_message
+    @notification.delete(:check)
   end
 
   def display_board

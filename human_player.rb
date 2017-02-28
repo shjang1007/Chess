@@ -13,10 +13,10 @@ class HumanPlayer
       display.render
 
       if start_pos
-        puts "#{color}'s turn. Move to where?"
+        puts "#{color.capitalize}'s turn. Move to where?"
         end_pos = display.cursor.get_input
       else
-        puts "#{color}'s turn. Move from where?"
+        puts "#{color.capitalize}'s turn. Move from where?"
         start_pos = display.cursor.get_input
       end
     end

@@ -28,9 +28,11 @@ class Game
         retry
       end
     end
-
-    display.render
+    @display.render
+    puts "Checkmate! #{winner} wins!!"
   end
+
+  private
 
   def game_over?
     board.checkmate?(:white) || board.checkmate?(:black)
@@ -39,6 +41,7 @@ class Game
   def switch_player!
     @current_player = current_player == :white ? :black : :white
   end
+
 end
 
 if __FILE__ == $PROGRAM_NAME
