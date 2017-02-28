@@ -7,8 +7,6 @@ require_relative "queen"
 require_relative "rook"
 require_relative "null_pieces"
 
-require 'byebug'
-
 class Board
   attr_accessor :grid
 
@@ -85,12 +83,13 @@ class Board
   def generate_board
     @grid = Array.new(8) { Array.new(8) }
     place_pieces
-  end
-
-  def place_pieces
-    place_back_pieces
     place_pawns_and_nullpieces
   end
+
+  # def place_pieces
+  #   place_back_pieces
+  #   place_pawns_and_nullpieces
+  # end
 
   def place_pawns_and_nullpieces
     grid.each_with_index do |grid_row, row|
@@ -108,12 +107,12 @@ class Board
     end
   end
 
-  def place_back_pieces
-    grid[0] = back_pieces(0,:black)
-    grid[7] = back_pieces(7, :white)
+  def place_pieces
+    grid[0] = pieces(0,:black)
+    grid[7] = pieces(7, :white)
   end
 
-  def back_pieces(row, color)
+  def pieces(row, color)
     [Rook.new(self, [row, 0], color),
       Knight.new(self, [row, 1], color),
       Bishop.new(self, [row, 2], color),
