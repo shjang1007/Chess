@@ -13,6 +13,7 @@ class Display
 
   def render
     system("clear")
+    display_instruction
     display_board
     notification.each { |_, v| puts "#{v}".colorize(:red) }
   end
@@ -25,6 +26,8 @@ class Display
     @notification.delete(:check)
   end
 
+  private
+
   def display_board
     puts "  #{ROWS.join("  ")}"
     board.grid.each_with_index do |grid_row, row|
@@ -35,6 +38,11 @@ class Display
       puts "#{render_row}#{row + 1}"
     end
     puts "  #{ROWS.join("  ")}"
+  end
+
+  def display_instruction
+    puts "Arrow keys to move and enter to select and place each piece"
+    puts "Escape key or control + c to quit"
   end
 
   def background_color(row, col)

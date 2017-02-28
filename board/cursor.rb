@@ -1,26 +1,13 @@
 require "io/console"
 
 KEYMAP = {
-  " " => :space,
-  "h" => :left,
-  "j" => :down,
-  "k" => :up,
-  "l" => :right,
-  "w" => :up,
-  "a" => :left,
-  "s" => :down,
-  "d" => :right,
-  "\t" => :tab,
   "\r" => :return,
-  "\n" => :newline,
-  "\e" => :escape,
   "\e[A" => :up,
   "\e[B" => :down,
   "\e[C" => :right,
   "\e[D" => :left,
-  "\177" => :backspace,
-  "\004" => :delete,
   "\u0003" => :ctrl_c,
+  "\e" => :escape
 }
 
 MOVES = {
@@ -84,10 +71,11 @@ class Cursor
     when :left, :right, :up, :down
       update_pos(MOVES[key])
       nil
-    when :ctrl_c
+    when :ctrl_c, :escape
       exit 0
     else
-      puts key
+      # Return nothing when it's not one of the key
+      return
     end
   end
 
