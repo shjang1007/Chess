@@ -1,12 +1,3 @@
-require_relative "piece"
-require_relative "bishop"
-require_relative "king"
-require_relative "knight"
-require_relative "pawn"
-require_relative "queen"
-require_relative "rook"
-require_relative "null_pieces"
-
 class Board
   attr_accessor :grid
 
@@ -30,11 +21,11 @@ class Board
     piece_selected = self[start_pos]
 
     if piece_selected.is_a?(NullPiece)
-      raise "Empty square selected"
+      raise InvalidMoveError, "Creative, but perhaps a bit too empty... Go again!"
     elsif piece_selected.color != color
-      raise "You have selected the wrong color piece"
+      raise InvalidMoveError, "Hands off! That's not your piece! Go again!"
     elsif invalid_move?(start_pos, end_pos)
-      raise "Invalide move"
+      raise InvalidMoveError, "Invalid move. Try again will ya?"
     end
 
     move_piece!(start_pos, end_pos)

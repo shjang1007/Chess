@@ -1,6 +1,4 @@
-require_relative "board"
 require "colorize"
-require_relative "cursor"
 
 class Display
   ROWS = %w(A B C D E F G H)

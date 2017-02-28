@@ -1,6 +1,16 @@
+require_relative "invalid_move_error"
+require_relative "board"
 require_relative "display"
+require_relative "cursor"
+require_relative "piece"
+require_relative "bishop"
+require_relative "king"
+require_relative "knight"
+require_relative "pawn"
+require_relative "queen"
+require_relative "rook"
+require_relative "null_pieces"
 require_relative "human_player"
-require_relative "display"
 
 class Game
   attr_reader :board, :player1, :player2, :current_player
@@ -29,7 +39,8 @@ class Game
       start_pos = moves[0]
       end_pos = moves[1]
       board.move_piece(current_player.color, start_pos, end_pos)
-    rescue
+    rescue => error
+      puts error.message
       retry
     end
 
