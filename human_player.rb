@@ -1,4 +1,4 @@
-require_relative 'display'
+# require_relative "display"
 
 class HumanPlayer
   attr_reader :color, :display
@@ -17,11 +17,9 @@ class HumanPlayer
       if start_pos
         puts "#{color}'s turn. Move to where?"
         end_pos = display.cursor.get_input
-
       else
         puts "#{color}'s turn. Move from where?"
         start_pos = display.cursor.get_input
-
       end
     end
 

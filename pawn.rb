@@ -27,22 +27,22 @@ class Pawn < Piece
     row, col = pos
     directions = []
     if color == :black
-      directions << [1, 0]
+      directions << [1, 0] if board[[row + 1, col]].is_a?(NullPiece)
       if row == 1
         directions << [2, 0] if board[[row + 2, col]].is_a?(NullPiece)
-      elsif board[[row + 1, col + 1]].color == :white
+      elsif board[[row + 1, col + 1]] && board[[row + 1, col + 1]].color == :white
         directions << [1, 1]
-      elsif board[[row + 1, col - 1]].color == :white
+      elsif board[[row + 1, col - 1]] && board[[row + 1, col - 1]].color == :white
         directions << [1, -1]
       end
     elsif color == :white
-      directions << [-1, 0]
+      directions << [-1, 0]  if board[[row - 1, col]].is_a?(NullPiece)
       if row == 6
         directions << [-2, 0] if board[[row - 2, col]].is_a?(NullPiece)
-      elsif board[[row - 1, col + 1]].color == :black
-        directions << [1, 1]
-      elsif board[[row - 1, col - 1]].color == :black
-        directions << [1, 1]
+      elsif board[[row - 1, col + 1]] && board[[row - 1, col + 1]].color == :black
+        directions << [-1, 1]
+      elsif board[[row - 1, col - 1]] && board[[row - 1, col - 1]].color == :black
+        directions << [-1, -1]
       end
     end
 
