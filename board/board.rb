@@ -59,6 +59,11 @@ class Board
     dup_board
   end
 
+  def occupied?(pos)
+    # Second condition to check that the pos is not out of 8 x 8 grid
+    !self[pos].is_a?(NullPiece) && self[pos] != nil
+  end
+
   def [](pos)
     row, col = pos
     grid[row][col]
