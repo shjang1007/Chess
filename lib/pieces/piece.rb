@@ -1,5 +1,7 @@
 require "colorize"
 
+# All chess pieces including null pieces (empty space) inherits from
+# Piece Class
 class Piece
   SYMBOLS = {
     "King" => [" \u{2654} ", " \u{265A} "],
@@ -15,9 +17,6 @@ class Piece
 
   def initialize(board, pos, color = nil)
     @board, @pos, @color = board, pos, color
-  end
-
-  def moves
   end
 
   def valid_moves

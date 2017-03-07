@@ -1,3 +1,4 @@
+# One module to handle Knight and King's moves
 module SteppingPiece
   def moves
     moves = []
@@ -11,6 +12,8 @@ module SteppingPiece
 
     moves
   end
+
+  private
 
   def stop?(pos)
     row, col = pos

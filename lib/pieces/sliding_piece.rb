@@ -1,3 +1,4 @@
+# One module to handle Rook, Queen, and Bishop's moves
 module SlidingPiece
   HORIZONTAL = [[0, 1], [0, -1]]
   VERTICAL = [[1, 0], [-1, 0]]
@@ -21,6 +22,8 @@ module SlidingPiece
 
     moves
   end
+
+  private
 
   def different_color_piece?(pos)
     return false if pos.is_a?(NullPiece)
