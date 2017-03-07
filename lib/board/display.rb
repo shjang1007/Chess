@@ -41,7 +41,8 @@ class Display
   end
 
   def display_instruction
-    puts "Arrow keys to move and enter to select and place each piece"
+    puts "Arrow keys to move"
+    puts "Enter to select and place each piece"
     puts "Escape key or control + c to quit"
   end
 

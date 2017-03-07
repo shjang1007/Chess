@@ -1,14 +1,14 @@
 # Chess
-![splash](images/Chess.png)
+![splash](images/chess-game.gif)
 
 Terminal Chess game built with Ruby using OOP principles.
 
 ## To play this game:
 
-- git clone https://github.com/shjang1007/Chess.git
-- Navigate to the Chess/lib folder
+- `git clone` https://github.com/shjang1007/chess.git
+- Navigate to the chess folder
 - Run `bundle install` in the terminal console
-- Run `ruby game.rb` in the terminal console to start the game
+- Run `ruby lib/game.rb` in the terminal console to start the game
 - At the top of the chess board, you will find further directions!
 
 ## Technical Features
@@ -19,4 +19,5 @@ Terminal Chess game built with Ruby using OOP principles.
 
 ## Future Features
 
+- Add AI player. (Currently computer player can only make random moves)
 - JavaScript to handle frontend display of the game.

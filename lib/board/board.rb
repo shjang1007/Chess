@@ -21,11 +21,11 @@ class Board
     piece_selected = self[start_pos]
 
     if piece_selected.is_a?(NullPiece)
-      raise InvalidMoveError, "Creative, but perhaps a bit too empty... Go again!"
+      raise InvalidMoveError, "Ooops, I think you picked an empty space."
     elsif piece_selected.color != color
-      raise InvalidMoveError, "Hands off! That's not your piece! Go again!"
+      raise InvalidMoveError, "Your have to select #{color.capitalize} piece."
     elsif invalid_move?(start_pos, end_pos)
-      raise InvalidMoveError, "Invalid move. Try again will ya?"
+      raise InvalidMoveError, "Invalid move! You don't think so?\nMaybe your king is in danger!"
     end
 
     move_piece!(start_pos, end_pos)
